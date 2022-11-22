@@ -10,7 +10,7 @@ ion-header {
 
 ion-content {
   * {
-    font-family: lato;
+    font-family: Arial, Helvetica, sans-serif;
   }
 
   .main-header {
@@ -33,7 +33,8 @@ ion-content {
       ion-col {
         ion-label {
           ion-note {
-            font-size: 0.7rem;
+            font-size: 1.7rem;
+            text-align: center;
           }
           ion-chip {
             ion-label {
@@ -41,6 +42,7 @@ ion-content {
               font-weight: bold;
               letter-spacing: 0.5px;
               text-shadow: 1px 1px 1px var(--ion-color-medium);
+              color: white;
             }
           }
           b {
