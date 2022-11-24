@@ -1,0 +1,51 @@
+<ion-header class="ion-no-border">
+  <ion-item lines="none">
+    <a href = '' >
+    <ion-avatar slot="start">
+      <img src="assets/icons/etn.png" />
+    </ion-avatar>
+  </a>
+  </ion-item>
+</ion-header>
+
+<ion-content [fullscreen]="true" color="light">
+
+  <div class="main-header"></div>
+
+  <ion-grid>
+
+    <ion-list>
+      <ion-list-header>
+        <ion-button href = 'transactions' >
+          <ion-icon style="font-size: 2rem;" color="light"  name="refresh-circle"></ion-icon>
+        </ion-button>
+        <ion-label color="light" style="text-align: center;font-size: large;">TRANSACTIONS</ion-label>
+        <ion-button  href = ''>
+          <ion-icon style="font-size: 2rem;" color="light"  name="close-circle"></ion-icon>
+        </ion-button>
+      </ion-list-header>
+      <ion-item lines="none" *ngFor="let item of transactions let i=index"
+      href="{{'/transactions/' + i}}" >
+        <ion-icon style="font-size: 2rem;" slot="start" *ngIf = "item.paymentType === 3"  color="primary" name = "add-circle"></ion-icon>
+        <ion-icon style="font-size: 2rem;" slot="start" *ngIf = "item.paymentType === 2"  color="primary" name = "arrow-up-circle"></ion-icon>
+        <ion-icon style="font-size: 2rem;" slot="start" *ngIf = "item.paymentType === 1"  color="primary" name = "arrow-down-circle"></ion-icon>
+        <ion-label size="large" class="ion-text-wrap" >
+          <b>{{ getTransactionType(item.paymentType) }}</b>
+          <p>
+            {{ item.dateCreated | date: 'medium' }}
+          </p>
+        </ion-label>
+        <ion-text slot="end" >{{ item.destinationAmount }} ETN
+        <div align = "end">
+           <ion-icon *ngIf = "item.status === 1"  style="color:orange;" name = "timer"></ion-icon>
+            <ion-icon *ngIf = "item.status === 2"  style="color:green;" name = "checkmark-circle"></ion-icon>
+            <ion-icon *ngIf = "item.status === 3"  style="color:red;" name = "warning"></ion-icon>
+            {{ getTransactionStatus(item.status) }}
+        </div>
+      </ion-text>
+      </ion-item>
+    </ion-list>
+
+  </ion-grid>
+
+</ion-content>

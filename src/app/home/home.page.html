@@ -1,8 +1,10 @@
 <ion-header class="ion-no-border">
   <ion-item lines="none">
+    <a href = ''>
     <ion-avatar slot="start">
       <img src="assets/icons/etn.png" />
     </ion-avatar>
+  </a>
   </ion-item>
 </ion-header>
 
@@ -25,23 +27,87 @@
               </ion-label>
             </ion-chip>
           </p>
+          <ion-note color="light" class="ion-margin-middle">
+            Available Balance : {{wallet.unlocked_balance}} ETN
+          </ion-note>
         </ion-label>
       </div>
       </ion-col>
     </ion-row>
 
-    <ion-row class="ion-margin-horizontal">
+    <ion-row class="ion-align-items-center" class="ion-margin-horizontal" >
       <ion-col *ngFor="let item of features" size="4">
         <ion-card class="ion-text-center">
           <ion-card-header>
             <div align="center">
-              <ion-thumbnail [style.background]="item?.background">
+              <ion-thumbnail [style.background-color]="item?.color">
                 <img [src]="item?.src" />
               </ion-thumbnail>
             </div>
           </ion-card-header>
-          <ion-card-content>
             <ion-label color="dark">{{ item?.name }}</ion-label>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-list>
+      <ion-list-header>
+        <ion-label>TRANSACTIONS</ion-label>
+        <ion-button detail = "true" href = 'transactions'>
+          <ion-icon name="arrow-forward-outline"></ion-icon>
+        </ion-button>
+      </ion-list-header>
+      <ion-item lines="none" *ngFor="let item of transactions">
+        <ion-icon style="font-size: 2rem;" slot="start" *ngIf = "item.paymentType === 3"  color="primary" name = "add-circle"></ion-icon>
+        <ion-icon style="font-size: 2rem;" slot="start" *ngIf = "item.paymentType === 2"  color="primary" name = "arrow-up-circle"></ion-icon>
+        <ion-icon style="font-size: 2rem;" slot="start" *ngIf = "item.paymentType === 1"  color="primary" name = "arrow-down-circle"></ion-icon>
+        <ion-label size="large" class="ion-text-wrap" >
+          <b>{{ getTransactionType(item.paymentType) }}</b>
+          <p>
+            {{ item.dateCreated | date: 'medium' }}
+          </p>
+        </ion-label>
+        <ion-text slot="end" >{{ item.destinationAmount }} ETN
+        <div align = "end">
+          <ion-icon *ngIf = "item.status === 1"  style="color:orange;" name = "timer"></ion-icon>
+          <ion-icon *ngIf = "item.status === 2"  style="color:green;" name = "checkmark-circle"></ion-icon>
+          <ion-icon *ngIf = "item.status === 3"  style="color:red;" name = "warning"></ion-icon>
+           {{ getTransactionStatus(item.status) }}
+        </div>
+      </ion-text>
+      </ion-item>
+    </ion-list>
+    
+
+    <ion-list>
+      <ion-list-header>
+        <ion-label>PAY WITH ETN</ion-label>
+        <ion-button>
+          <ion-icon name="help-circle-outline"></ion-icon>
+        </ion-button>
+      </ion-list-header>
+    </ion-list>
+
+    <ion-list>
+      <ion-list-header>
+    <ion-label> AVAILABLE IN UNITED KINGDOM
+    </ion-label>
+    </ion-list-header>
+    </ion-list>
+
+
+    <ion-row class="ion-margin-horizontal">
+      <ion-col *ngFor="let item of suggestions" size="2">
+        <ion-card class="ion-text-center">
+          <ion-card-header>
+            <div align="center">
+              <ion-thumbnail [style.background]= white>
+                <img [src]="item.logo" />
+              </ion-thumbnail>
+            </div>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-label color="dark">{{ item.name }}</ion-label>
           </ion-card-content>
         </ion-card>
       </ion-col>
@@ -49,22 +115,28 @@
 
     <ion-list>
       <ion-list-header>
-        <ion-label>RECENT TRANSACTIONS</ion-label>
-      </ion-list-header>
-      <ion-item lines="none" *ngFor="let item of transactions; let i = index">
-        <ion-icon slot="start" name="cash" color="primary"></ion-icon>
-        <ion-label size="large" class="ion-text-wrap" >
-          <b>{{ getTransactionType(transactions[i].paymentType) }}</b>
-          <p>
-            {{ transactions[i].dateCreated }}
-          </p>
-        </ion-label>
-        <ion-text slot="end" >{{ transactions[i].destinationAmount }} ETN</ion-text>
-        <p>
-          {{ getTransactionStatus(transactions[i].status) }}
-        </p>
-      </ion-item>
+    <ion-label> ALL CATEGORIES
+    </ion-label>
+    </ion-list-header>
     </ion-list>
+
+    <ion-row class="ion-margin-horizontal">
+
+      <ion-col *ngFor="let item of sections" size="2">
+        <ion-card class="ion-text-center">
+          <ion-card-header>
+            <div align="center">
+                <ion-icon *ngIf = "item.name === 'Utilities'" style="color:pink; font-size: 10vh;"  name = "bulb-outline"></ion-icon>
+                <ion-icon *ngIf = "item.name === 'Top-up'"  style="color:green; font-size: 10vh;" name = "cash-outline"></ion-icon>
+            </div>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-label color="dark">{{ item.name }}</ion-label>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
   </ion-grid>
 
 </ion-content>

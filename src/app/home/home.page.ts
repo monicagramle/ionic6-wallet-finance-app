@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { pay_with_etn, transactions, wallet } from '../model/model';
 import { EtnService } from '../service/etn.service';
@@ -51,22 +52,26 @@ pay_with_etn: pay_with_etn = {
 }
 
   features: any[] = [
-    {id: 1, name: 'Pay', src: 'assets/icons/debit-card.png', background: 'rgba(27,150,181, 0.1)', page: ''},
-    {id: 2, name: 'Recieve', src: 'assets/icons/send.png', background: 'rgba(255, 196, 9, 0.1)', page: ''},
-    {id: 3, name: 'Notifications', src: 'assets/icons/notifications.png', background: 'rgba(255, 196, 9, 0.1)', page: ''},
+    {id: 1, name: 'Pay', src: 'assets/icons/cloud-upload.svg', color: '#0000' ,page: ''},
+    {id: 2, name: 'Recieve', src: 'assets/icons/cloud-download.svg', color: '#0000' , page: ''},
+    {id: 3, name: 'Notifications', src: 'assets/icons/notifications-circle.svg', color: '#0000' , page: ''},
   ];
 
   category: any = '';
   status: any = '';
+  suggestions: any = [];
+  sections: any = [];
 
 
   constructor(private service: EtnService) {
 
    this.service.getData()
    .subscribe(data => {
-    console.log(data.transactions);
         this.transactions = data.transactions;
         this.pay_with_etn = data.pay_with_etn;
+        this.suggestions = this.pay_with_etn.suggestions[0];
+        this.sections = this.pay_with_etn.sections;
+        console.log(this.sections);
         this.wallet = data.wallet;
   });
   }
